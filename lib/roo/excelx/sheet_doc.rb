@@ -99,6 +99,9 @@ module Roo
             when :boolean
               (cell.content.to_i == 1 ? 'TRUE' : 'FALSE')
             when :date, :time, :datetime
+              if (cell.content.to_f - cell.content.to_f.floor).abs > 0.000001 && [:date].include?(value_type)
+                value_type = :datetime
+              end
               cell.content
             when :formula
               cell.content.to_f
